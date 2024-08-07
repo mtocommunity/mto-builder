@@ -1,0 +1,11 @@
+{
+  "name": "mto-builder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "nodemon src/index.ts"
+  },
+  "author": "",
+  "license": "MIT"
+}
