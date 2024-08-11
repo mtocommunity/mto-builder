@@ -1,10 +1,8 @@
-import { Client, IntentsBitField } from 'discord.js';
-import eventHandler from './eventHandler';
+import Config from '../config';
+import client from './client';
 
-const client = new Client({
-  intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages, IntentsBitField.Flags.MessageContent]
-});
+import eventHandler from './eventHandler';
 
 eventHandler(client);
 
-client.login(process.env.DISCORD_BOT_TOKEN);
+client.login(Config.DISCORD.TOKEN);

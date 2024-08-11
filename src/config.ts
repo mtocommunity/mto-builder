@@ -2,6 +2,9 @@ import 'dotenv/config';
 import { IConfig } from './ts';
 
 const Config: IConfig = {
+  DISCORD: {
+    TOKEN: process.env.DISCORD_BOT_TOKEN || ''
+  },
   HTTP: {
     PORT: Number(process.env.HTTP_PORT) || 3000
   },

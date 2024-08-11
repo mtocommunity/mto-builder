@@ -1,4 +1,7 @@
 export interface IConfig {
+  DISCORD: {
+    TOKEN: string;
+  };
   HTTP: {
     PORT: number;
   };
