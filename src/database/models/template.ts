@@ -7,6 +7,9 @@ class Template extends Model {
   declare name: string;
   declare description: string;
   declare discord_id: string;
+  declare setup_channel_name: string;
+  declare staff_role_name: string;
+  declare member_role_name: string;
 }
 
 Template.init(
@@ -25,6 +28,18 @@ Template.init(
     },
     discord_id: {
       type: DataTypes.STRING(20),
+      allowNull: false
+    },
+    setup_channel_name: {
+      type: DataTypes.STRING(45),
+      allowNull: false
+    },
+    staff_role_name: {
+      type: DataTypes.STRING(45),
+      allowNull: false
+    },
+    member_role_name: {
+      type: DataTypes.STRING(45),
       allowNull: false
     }
   },

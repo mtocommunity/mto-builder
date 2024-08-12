@@ -4,7 +4,7 @@ import Template from './models/template';
 export default function makeRelations() {
   BuildProcess.belongsTo(Template, {
     foreignKey: 'template_id',
-    targetKey: 'id'
+    as: 'template'
   });
 
   Template.hasMany(BuildProcess, {

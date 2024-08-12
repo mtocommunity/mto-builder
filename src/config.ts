@@ -2,6 +2,9 @@ import 'dotenv/config';
 import { IConfig } from './ts';
 
 const Config: IConfig = {
+  BUILD_PROCESS: {
+    MAX_TIME: 10 // Minutes
+  },
   DISCORD: {
     TOKEN: process.env.DISCORD_BOT_TOKEN || ''
   },

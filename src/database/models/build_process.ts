@@ -2,6 +2,7 @@ import { DataTypes, Model } from 'sequelize';
 import { TypeServer } from '../../ts';
 
 import Database from '../Database';
+import Template from './template';
 
 class BuildProcess extends Model {
   declare id: string;
@@ -11,7 +12,8 @@ class BuildProcess extends Model {
   declare creator_id: string;
   declare start_time: Date;
   declare aborted: boolean;
-  declare completed_date: Date;
+  declare completed_time: Date;
+  declare template: Template;
 }
 
 BuildProcess.init(

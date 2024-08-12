@@ -1,8 +1,7 @@
 import { Router } from 'express';
 import client from '../../../discord/client';
 import { TypeServer } from '../../../ts';
-import { getTemplate } from '../../../database/functions';
-import BuildProcess from '../../../database/models/build_process';
+import { createBuildProcess, getTemplate } from '../../../database/functions';
 
 const server = Router();
 
@@ -42,13 +41,7 @@ server.post('/create', async (req, res) => {
   guild.invites
     .create(guild.channels.cache.first()?.id as string, { maxUses: 1, unique: true })
     .then(async (invite) => {
-      await BuildProcess.create({
-        type: type,
-        template_id: template_id,
-        creator_id: creator_id,
-        guild_id: guild.id,
-        completed_time: null
-      });
+      await createBuildProcess({ type, template_id, creator_id, guild_id: guild.id });
 
       return res.json({ data: { guild_id: guild.id, invitation_link: invite.url } });
     })

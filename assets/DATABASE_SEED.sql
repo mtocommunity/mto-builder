@@ -6,7 +6,10 @@ CREATE TABLE template (
   id CHAR(20) PRIMARY KEY,
   name CHAR(20) NOT NULL,
   description TEXT NOT NULL,
-  discord_id CHAR(20) NOT NULL
+  discord_id CHAR(20) NOT NULL,
+  setup_channel_name CHAR(45) NOT NULL,
+  staff_role_name CHAR(45) NOT NULL,
+  member_role_name CHAR(45) NOT NULL,
 );
 
 CREATE TABLE build_process (
@@ -23,4 +26,5 @@ CREATE TABLE build_process (
 
 -- Insert template
 
-INSERT INTO template (id, name, description, discord_id) VALUES ('project-dev', 'Proyecto DevTeam', 'Esta plantilla tiene todos los materiales canales y permisos base, para poder realizar proyectos de manera colaborativa', '87Hf5azXjeSv');
+INSERT INTO template (id, name, description, discord_id, setup_channel_name, staff_role_name, member_role_name)
+VALUES ('project-dev', 'Proyecto DevTeam', 'Esta plantilla tiene todos los materiales canales y permisos base, para poder realizar proyectos de manera colaborativa', '87Hf5azXjeSv', 'bienvenido', 'Lider de proyecto', 'miembro');
