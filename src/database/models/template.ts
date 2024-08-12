@@ -30,7 +30,7 @@ Template.init(
   },
   {
     sequelize: Database,
-    modelName: 'template',
+    tableName: 'template',
     timestamps: false
   }
 );

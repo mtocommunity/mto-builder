@@ -42,7 +42,7 @@ BuildProcess.init(
       allowNull: true
     }
   },
-  { sequelize: Database, modelName: 'build_process', timestamps: false }
+  { sequelize: Database, tableName: 'build_process', timestamps: false }
 );
 
 export default BuildProcess;

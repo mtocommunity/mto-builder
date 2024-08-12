@@ -1,7 +1,10 @@
 import { Router } from 'express';
-import { TypeServer } from '../../ts';
+import { TypeServer } from '../../../ts';
+import templateRouter from './template';
 
 const api = Router();
+
+api.use('/template', templateRouter);
 
 // Test route
 api.post('/create-server', (req, res) => {
