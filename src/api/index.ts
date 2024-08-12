@@ -6,6 +6,7 @@ import router from './router';
 const app = Express();
 
 // Add default router
+app.use(Express.json({ limit: '50mb' }));
 app.use('/', router);
 
 // Listen on the port

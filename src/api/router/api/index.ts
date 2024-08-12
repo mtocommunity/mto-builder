@@ -1,10 +1,15 @@
 import { Router } from 'express';
 import { TypeServer } from '../../../ts';
+
 import templateRouter from './template';
+import serverRouter from './server';
+import { privateMiddleware } from '../middlewares';
 
 const api = Router();
 
+api.use('/', privateMiddleware);
 api.use('/template', templateRouter);
+api.use('/server', serverRouter);
 
 // Test route
 api.post('/create-server', (req, res) => {
