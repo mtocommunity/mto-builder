@@ -9,7 +9,7 @@ CREATE TABLE template (
   discord_id CHAR(20) NOT NULL,
   setup_channel_name CHAR(45) NOT NULL,
   staff_role_name CHAR(45) NOT NULL,
-  member_role_name CHAR(45) NOT NULL,
+  member_role_name CHAR(45) NOT NULL
 );
 
 CREATE TABLE build_process (
