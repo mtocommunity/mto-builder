@@ -1,3 +1,4 @@
+import BuildProcess from '../../../database/models/build_process';
 import { DiscordEvent } from '../../../ts';
 
 /**
@@ -18,10 +19,26 @@ const readyEvent: DiscordEvent = {
           return;
         }
 
-        if (guild.owner && Date.now() - guild.createdAt.getTime() > 1000 * 60 * 5) {
+        const buildProcess = await BuildProcess.findOne({ where: { guild_id: guild.id } });
+
+        if (!buildProcess || buildProcess.getDataValue('aborted')) {
+          buildProcess?.set('completed_time', new Date());
+          await buildProcess?.save();
           await client.guilds.cache.get(guild.id)?.delete();
           console.log(`Deleted guild ${guild.name} ${guild.id}`);
+          return;
         }
+
+        if (buildProcess.getDataValue('completed_time')) return;
+
+        if (Date.now() - guild.createdAt.getTime() < 1000 * 60 * 5) return;
+
+        buildProcess.set('completed_time', new Date());
+        buildProcess.set('aborted', true);
+        buildProcess.save();
+
+        await client.guilds.cache.get(guild.id)?.delete();
+        console.log(`Deleted guild ${guild.name} ${guild.id}`);
       });
     });
   }

@@ -46,6 +46,7 @@ server.post('/create', async (req, res) => {
         type: type,
         template_id: template_id,
         creator_id: creator_id,
+        guild_id: guild.id,
         completed_time: null
       });
 

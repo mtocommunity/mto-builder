@@ -13,8 +13,10 @@ CREATE TABLE build_process (
   id INT PRIMARY KEY AUTO_INCREMENT,
   type CHAR(20) NOT NULL,
   template_id CHAR(20) NOT NULL,
+  guild_id CHAR(20) NOT NULL,
   creator_id CHAR(20) NOT NULL,
   start_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  aborted BOOLEAN NOT NULL DEFAULT FALSE,
   completed_time TIMESTAMP,
   FOREIGN KEY (template_id) REFERENCES template(id)
 );

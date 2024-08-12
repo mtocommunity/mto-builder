@@ -28,6 +28,10 @@ BuildProcess.init(
       type: DataTypes.STRING(20),
       allowNull: false
     },
+    guild_id: {
+      type: DataTypes.STRING(20),
+      allowNull: false
+    },
     creator_id: {
       type: DataTypes.STRING(20),
       allowNull: false
@@ -36,6 +40,11 @@ BuildProcess.init(
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW
+    },
+    aborted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     },
     completed_time: {
       type: DataTypes.DATE,
