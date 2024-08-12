@@ -2,4 +2,8 @@
 import './api';
 
 // Load database module
-import './database';
+import { verifyConnection } from './database';
+verifyConnection();
+
+// Load discord module
+import './discord';
