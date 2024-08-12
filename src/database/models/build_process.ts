@@ -7,8 +7,10 @@ class BuildProcess extends Model {
   declare id: string;
   declare type: TypeServer;
   declare template_id: string;
+  declare guild_id: string;
   declare creator_id: string;
   declare start_time: Date;
+  declare aborted: boolean;
   declare completed_date: Date;
 }
 
