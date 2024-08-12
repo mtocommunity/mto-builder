@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS mto_builder;
+
 USE mto_builder;
 
 CREATE TABLE template (
