@@ -37,7 +37,7 @@ BuildProcess.init(
       allowNull: false,
       defaultValue: DataTypes.NOW
     },
-    completed_date: {
+    completed_time: {
       type: DataTypes.DATE,
       allowNull: true
     }
