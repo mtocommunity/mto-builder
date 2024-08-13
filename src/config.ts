@@ -3,7 +3,8 @@ import { IConfig } from './ts';
 
 const Config: IConfig = {
   BUILD_PROCESS: {
-    MAX_TIME: 10 // Minutes
+    MAX_TIME: 10, // Minutes
+    MANAGER_ID: '1264016650034741258'
   },
   DISCORD: {
     TOKEN: process.env.DISCORD_BOT_TOKEN || ''

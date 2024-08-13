@@ -1,6 +1,7 @@
 export interface IConfig {
   BUILD_PROCESS: {
     MAX_TIME: number; // Minutes
+    MANAGER_ID: string;
   };
   DISCORD: {
     TOKEN: string;

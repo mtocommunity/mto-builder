@@ -1,12 +1,14 @@
-import { GuildMember } from 'discord.js';
+import { Guild, GuildMember, TextChannel } from 'discord.js';
 import { DiscordEvent } from '../../../ts';
 import Config from '../../../config';
-import { abortBuildProcess, getBuildProcess } from '../../../database/functions';
+import { abortBuildProcess, completeBuildProcess, getBuildProcess } from '../../../database/functions';
+import Template from '../../../database/models/template';
+import { buildInviteManager } from '../../static/embeds';
 
 /**
  * This event is triggered when the bot is ready.
  */
-const readyEvent: DiscordEvent = {
+const memberJoinEvent: DiscordEvent = {
   name: 'guildMemberAdd',
   description: 'This event is triggered when the bot is ready.',
   run: async (client, member: GuildMember) => {
@@ -15,6 +17,31 @@ const readyEvent: DiscordEvent = {
     const buildProcess = await getBuildProcess(guild.id);
 
     if (!buildProcess) return;
+
+    if (member.user.id === Config.BUILD_PROCESS.MANAGER_ID) {
+      try {
+        // Move role of the manager to top // -1 because this count @everyone role
+        await member.roles.highest.edit({ position: guild.roles.cache.size - 1 });
+
+        // Set owner of the guild to the creator of the build process
+        await guild.setOwner(buildProcess.creator_id);
+
+        // Exit the guild
+        await guild.leave();
+
+        // Complete the build process
+        await completeBuildProcess(guild.id);
+      } catch {
+        await abortBuildProcess(guild.id);
+
+        if (guild.ownerId === client.user?.id) {
+          await guild.delete();
+        } else {
+          await guild.leave();
+        }
+      }
+      return;
+    }
 
     // Check if the member is the creator of the build process
     if (member.user.id !== buildProcess.creator_id) {
@@ -39,7 +66,28 @@ const readyEvent: DiscordEvent = {
       await guild.leave();
       return;
     }
+
+    const setupChannel = getSetUpChannel(guild, buildProcess.template);
+    const staffRole = getStaffRole(guild, buildProcess.template);
+
+    if (!setupChannel || !staffRole) {
+      await abortBuildProcess(guild.id);
+      await guild.delete();
+      return;
+    }
+
+    await member.roles.add(staffRole);
+
+    await setupChannel.send(buildInviteManager(member));
   }
 };
 
-export default readyEvent;
+function getSetUpChannel(guild: Guild, template: Template) {
+  return guild.channels.cache.filter((channel) => channel.name === template.setup_channel_name).first() as TextChannel;
+}
+
+function getStaffRole(guild: Guild, template: Template) {
+  return guild.roles.cache.filter((role) => role.name === template.staff_role_name).first();
+}
+
+export default memberJoinEvent;
